@@ -73,7 +73,7 @@ def parse_html_data(html_content):
     # ওয়েবসাইটের আসল HTML ক্লাসের সাথে মিলিয়ে পরিবর্তন করতে হবে।
     # ------------------------------------------------------------------
     
-    # ম্যাচ স্ক্র্যাপিং উদাহরণ
+    # ম্যাচ স্ক্র্যাপিং (উদাহরণ ক্লাস)
     for match_box in soup.select('.match-card-class'): # আসল ক্লাস বসান
         title = match_box.select_one('.match-title').text.strip() if match_box.select_one('.match-title') else "Unknown Match"
         status = match_box.select_one('.badge-status').text.strip() if match_box.select_one('.badge-status') else "Upcoming"
@@ -94,7 +94,7 @@ def parse_html_data(html_content):
             streaming_servers=servers
         ))
 
-    # টিভি চ্যানেল স্ক্র্যাপিং উদাহরণ
+    # টিভি চ্যানেল স্ক্র্যাপিং (উদাহরণ ক্লাস)
     for tv_box in soup.select('.tv-channel-class'): # আসল ক্লাস বসান
         ch_name = tv_box.select_one('.ch-name').text.strip() if tv_box.select_one('.ch-name') else "Unknown TV"
         stream_link = tv_box.select_one('a.play')['href'] if tv_box.select_one('a.play') else ""
