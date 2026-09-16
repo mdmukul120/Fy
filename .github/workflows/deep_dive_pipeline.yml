@@ -1,0 +1,46 @@
+name: Cricfy Deep Dive Streaming Pipeline
+
+on:
+  schedule:
+    # প্রতি ৫ মিনিট পরপর রান করবে
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+jobs:
+  run-engine:
+    runs-on: ubuntu-latest
+    timeout-minutes: 4 # ৫ মিনিটের অটোমেশনের জন্য টাইমআউট নিশ্চিত করা
+
+    steps:
+      - name: Code Repository Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1 # ফাস্ট চেকাউটের জন্য শ্যালো ক্লোন
+
+      - name: Python Environment Setup
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests urllib3
+
+      - name: Execute Scraper Engine
+        run: python advanced_scraper.py
+
+      - name: Commit and Push Data Updates
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add matches.json
+          if ! git diff --staged --quiet; then
+            git commit -m "build(data): sync live streams & channels [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+          else
+            echo "No change in stream data. Execution skipped."
+          fi
