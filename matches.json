@@ -1,0 +1,72 @@
+{
+  "system_info": {
+    "engine": "Cricfy DeepDive Scraper v2.0",
+    "provider": "CricifyProvider",
+    "status": "Operational"
+  },
+  "live_matches": [
+    {
+      "match_id": "live_001",
+      "title": "ICC Championship - Match 1",
+      "status": "LIVE",
+      "teams": {
+        "team_a": "Team A",
+        "team_b": "Team B"
+      },
+      "servers": [
+        {
+          "server": "Server 1 (Primary Direct)",
+          "url": "https://stream.cricfy.pro/live1/index.m3u8",
+          "type": "hls",
+          "status": "Active"
+        },
+        {
+          "server": "Server 2 (Auto Fallback CDN)",
+          "url": "https://stream.cricfy.pro/live2/index.m3u8",
+          "type": "hls",
+          "status": "Backup"
+        },
+        {
+          "server": "Server 3 (High Bandwidth)",
+          "url": "https://stream.cricfy.pro/live1/index_hd.m3u8",
+          "type": "hls",
+          "status": "Backup"
+        }
+      ]
+    }
+  ],
+  "upcoming_matches": [
+    {
+      "match_id": "up_001",
+      "title": "T20 League - Match 5",
+      "status": "UPCOMING",
+      "scheduled_start": "2026-09-17T18:00:00Z"
+    }
+  ],
+  "recent_matches": [
+    {
+      "match_id": "rec_001",
+      "title": "T20 League - Match 4",
+      "status": "FINISHED",
+      "score_summary": "Team A won by 15 runs"
+    }
+  ],
+  "tv_channels": [
+    {
+      "channel_id": "tv_sports_1",
+      "name": "Star Sports 1 HD",
+      "category": "Sports",
+      "logo": "https://cricfy.pro/wp-content/uploads/2024/11/cropped-cricfytv-2.png",
+      "servers": [
+        {
+          "server": "Primary HD",
+          "url": "https://tv.cricfy.pro/ss1/index.m3u8"
+        },
+        {
+          "server": "Backup SD",
+          "url": "https://tv.cricfy.pro/ss1_sd/index.m3u8"
+        }
+      ]
+    }
+  ]
+}
