@@ -2,7 +2,7 @@ name: Premium Deep-Dive Sports Scraper
 
 on:
   schedule:
-    - cron: '*/5 * * * *' # প্রতি ৫ মিনিট পর পর
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -20,7 +20,6 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
-        # cache অপশন মুছে ফেলা হয়েছে, তাই আর requirements.txt এরর আসবে না
 
     - name: Install Python Dependencies
       run: |
@@ -37,7 +36,10 @@ jobs:
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "Premium Scraper Bot"
-        git add premium_api.json
         
-        # যদি ডেটা পরিবর্তন হয়, তবেই কমিট করবে
-        git diff --quiet && git diff --staged --quiet || (git commit -m "🚀 Auto-updated deep-dive sports match data" && git push)
+        if [ -f premium_api.json ]; then
+          git add premium_api.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "🚀 Auto-updated deep-dive sports match data" && git push)
+        else
+          echo "Warning: premium_api.json was not generated. Skipping commit."
+        fi
