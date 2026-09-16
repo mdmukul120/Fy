@@ -20,7 +20,7 @@ jobs:
       uses: actions/setup-python@v5
       with:
         python-version: '3.10'
-        cache: 'pip'
+        # cache অপশন মুছে ফেলা হয়েছে, তাই আর requirements.txt এরর আসবে না
 
     - name: Install Python Dependencies
       run: |
