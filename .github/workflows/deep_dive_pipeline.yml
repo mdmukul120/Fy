@@ -2,20 +2,23 @@ name: Cricfy Deep Dive Streaming Pipeline
 
 on:
   schedule:
-    # প্রতি ৫ মিনিট পরপর রান করবে
     - cron: '*/5 * * * *'
   workflow_dispatch:
 
 jobs:
   run-engine:
     runs-on: ubuntu-latest
-    timeout-minutes: 4 # ৫ মিনিটের অটোমেশনের জন্য টাইমআউট নিশ্চিত করা
+    timeout-minutes: 4
+    
+    # এটি গিটহাব অ্যাকশনকে কোড পুশ করার পারমিশন দেবে
+    permissions:
+      contents: write
 
     steps:
       - name: Code Repository Checkout
         uses: actions/checkout@v4
         with:
-          fetch-depth: 1 # ফাস্ট চেকাউটের জন্য শ্যালো ক্লোন
+          fetch-depth: 1
 
       - name: Python Environment Setup
         uses: actions/setup-python@v5
